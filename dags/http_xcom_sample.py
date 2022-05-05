@@ -36,7 +36,7 @@ def complete(**context):
 
 
 with DAG(
-    'http_xcom_sample',
+    dag_id='http_xcom_sample',
     description='A simple http DAG',
     schedule_interval=timedelta(hours=1),
     start_date=datetime(2021, 1, 1),
