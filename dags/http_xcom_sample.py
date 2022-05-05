@@ -31,18 +31,6 @@ def treat_as_branch(**context):
     return 'http_dummy_task' + str(next_task_number)
 
 
-def get_http_payload(**context):
-    http_payload = context['ti'].xcom_pull(task_ids='base_task')
-    print("this is base_task's http payload")
-    print(http_payload)  # got returns as string
-    http_payload2 = context['ti'].xcom_pull(task_ids='base_task2')
-    print("this is base_task's http payload")
-    print(http_payload2)  # got returns as string
-    test_xcom_value = context['ti'].xcom_pull(key='xcom_push_value')
-    print("this is xcom value")
-    print(test_xcom_value)  # 안되는거 세트 가 아니라 아주 잘 됨.
-
-
 def complete(**context):
     print(context)
 
