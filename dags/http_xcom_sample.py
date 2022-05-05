@@ -4,6 +4,7 @@ from datetime import datetime, timedelta
 from airflow import DAG
 from airflow.providers.http.operators.http import SimpleHttpOperator
 from airflow.operators.python import PythonOperator, BranchPythonOperator
+from airflow.utils.trigger_rule import TriggerRule
 
 
 def handle_response(response, **context):
@@ -79,7 +80,8 @@ with DAG(
 
     complete_task = PythonOperator(
         task_id='complete_task',
-        python_callable=complete
+        python_callable=complete,
+        trigger_rule=TriggerRule.ONE_SUCCESS
     )
 
     base_task >> branch_task >> [http_dummy_task1, http_dummy_task2, http_dummy_task3] >> complete_task
