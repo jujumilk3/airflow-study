@@ -24,7 +24,7 @@ class S(BaseHTTPRequestHandler):
                 response = {
                     'status': 'success',
                     'msg': 'hi',
-                    'next_task_number': (work_rand % 2) + 1
+                    'next_task_number': (work_rand % 3) + 1
                 }
                 self.response(response)
 
@@ -46,6 +46,11 @@ class S(BaseHTTPRequestHandler):
         elif str(self.path) == '/airflow/dummy-task2':
             self._set_response(200)
             response = airflow_dummy_task2()
+            self.response(response)
+
+        elif str(self.path) == '/airflow/dummy-task3':
+            self._set_response(200)
+            response = airflow_dummy_task3()
             self.response(response)
 
     def do_POST(self):
@@ -72,6 +77,14 @@ def airflow_dummy_task2():
         count -= 1
         sleep(1)
     return {'msg': 'dummy_task2', 'status': 'success'}
+
+
+def airflow_dummy_task3():
+    count = random.randrange(1, 10)  # 최대 9초가 걸리는 dummy task
+    while count:
+        count -= 1
+        sleep(1)
+    return {'msg': 'dummy_task3', 'status': 'success'}
 
 
 def run(server_class=HTTPServer, handler_class=S, port=8000):
