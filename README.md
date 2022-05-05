@@ -22,3 +22,5 @@
 3. run  
    `airflow webserver --port 8080`  
    `airflow scheduler`
+4. start webserver  
+   `python webserver.py`
